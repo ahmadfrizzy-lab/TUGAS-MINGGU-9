@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Lowongan Kerja Lokal</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            200: '#bae0fd',
+                            500: '#0b85ee',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts Inter & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
+
+    <!-- Header / Navbar Section -->
+    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200/80 shadow-sm transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                
+                <!-- Brand Logo -->
+                <a href="#hero-section" class="flex items-center gap-2.5 group">
+                    <div class="w-10 h-10 rounded-xl bg-brand-600 text-white flex items-center justify-center font-bold text-xl shadow-md group-hover:bg-brand-700 transition-all">
+                        <i class="fa-solid fa-briefcase"></i>
+                    </div>
+                    <div>
+                        <span class="font-extrabold text-lg sm:text-xl text-slate-900 tracking-tight block leading-none">Kerja<span class="text-brand-600">Lokal</span></span>
+                        <span class="text-[10px] text-slate-500 font-medium tracking-wider uppercase block">Karir Kota Anda</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links (Urut Sesuai Tampilan Layanan) -->
+                <nav class="hidden lg:flex items-center gap-6 font-medium text-slate-600 text-sm">
+                    <a href="#hero-section" class="hover:text-brand-600 transition-colors py-1">Beranda</a>
+                    <a href="#kategori-section" class="hover:text-brand-600 transition-colors py-1">Kategori</a>
+                    <a href="#lowongan" class="hover:text-brand-600 transition-colors py-1">Lowongan Terbaru</a>
+                    <a href="#cta-section" class="hover:text-brand-600 transition-colors py-1">Unggah CV</a>
+                    <a href="#kontak-section" class="hover:text-brand-600 transition-colors py-1">Bantuan</a>
+                </nav>
+
+                <!-- Header CTA & Admin Button -->
+                <div class="hidden sm:flex items-center gap-3">
+                    <a href="#lowongan" class="px-3.5 py-2 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-all">
+                        Cari Kerja
+                    </a>
+                    <button onclick="openApplyModal('Umum')" class="px-3.5 py-2 text-xs font-semibold text-white bg-brand-600 hover:bg-brand-700 rounded-lg shadow-sm transition-all flex items-center gap-1.5">
+                        <i class="fa-solid fa-file-arrow-up"></i> Unggah CV
+                    </button>
+                    <!-- Admin Control Nav Link -->
+                    <button id="admin-nav-btn" onclick="openAdminAuth()" class="px-3 py-2 text-xs font-bold text-amber-700 bg-amber-50 hover:bg-amber-100 border border-amber-200/80 rounded-lg transition-all flex items-center gap-1.5">
+                        <i class="fa-solid fa-user-shield text-amber-600"></i> <span id="admin-btn-text">Admin Panel</span>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="lg:hidden flex items-center gap-2">
+                    <button onclick="openAdminAuth()" class="p-2 text-amber-700 bg-amber-50 rounded-lg hover:bg-amber-100 border border-amber-200">
+                        <i class="fa-solid fa-user-shield text-sm"></i>
+                    </button>
+                    <button id="mobile-menu-btn" class="p-2 text-slate-600 hover:text-slate-900 focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl" id="menu-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu Dropdown (Urut Sesuai Tampilan Layanan) -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 space-y-2 shadow-lg">
+            <a href="#hero-section" onclick="closeMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-brand-600">Beranda</a>
+            <a href="#kategori-section" onclick="closeMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-brand-600">Kategori Pekerjaan</a>
+            <a href="#lowongan" onclick="closeMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-brand-600">Lowongan Terbaru</a>
+            <a href="#cta-section" onclick="closeMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-brand-600">Unggah CV Saja</a>
+            <a href="#kontak-section" onclick="closeMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-brand-600">Kontak & Bantuan</a>
+            <div class="pt-3 border-t border-slate-100 flex flex-col gap-2">
+                <button onclick="openAdminAuth()" class="w-full text-center py-2.5 text-sm font-semibold text-amber-800 bg-amber-50 hover:bg-amber-100 rounded-lg border border-amber-200">
+                    <i class="fa-solid fa-user-shield mr-1.5 text-amber-600"></i> Admin Panel & Monitoring
+                </button>
+                <button onclick="openApplyModal('Umum')" class="w-full text-center py-2.5 text-sm font-semibold text-white bg-brand-600 rounded-lg">
+                    <i class="fa-solid fa-file-arrow-up mr-1.5"></i> Unggah CV Sekarang
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <section id="hero-section" class="relative bg-gradient-to-b from-brand-50 via-white to-slate-50 pt-12 pb-20 lg:pt-20 lg:pb-28">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto space-y-4">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-100 text-brand-700 text-xs sm:text-sm font-medium mb-2">
+                        <span class="w-2 h-2 rounded-full bg-brand-600 animate-pulse"></span>
+                        Terhubung dengan 500+ Perusahaan Lokal
+                    </div>
+                    <h1 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight" id="hero-title-text">
+                        Temukan Pekerjaan Impian di <span class="text-brand-600">Kota Anda</span>
+                    </h1>
+                    <p class="text-base sm:text-lg text-slate-600 font-normal leading-relaxed">
+                        Ribuan lowongan kerja lokal terverifikasi setiap hari. Mudah, cepat, dan terhubung langsung dengan HRD tanpa perantara.
+                    </p>
+                </div>
+
+                <!-- Main Search Bar -->
+                <div class="mt-8 max-w-4xl mx-auto">
+                    <form id="search-form" class="bg-white p-3 sm:p-4 rounded-2xl shadow-xl border border-slate-200/80 flex flex-col md:flex-row gap-3">
+                        <div class="flex-1 flex items-center gap-3 px-3 py-2 bg-slate-50 rounded-xl border border-slate-200 focus-within:border-brand-500 focus-within:ring-2 focus-within:ring-brand-100 transition-all">
+                            <i class="fa-solid fa-magnifying-glass text-slate-400 text-lg"></i>
+                            <input type="text" id="search-keyword" placeholder="Judul posisi, keahlian, atau perusahaan..." class="w-full bg-transparent border-none focus:outline-none text-slate-800 text-sm sm:text-base placeholder:text-slate-400">
+                        </div>
+                        <div class="flex-1 flex items-center gap-3 px-3 py-2 bg-slate-50 rounded-xl border border-slate-200 focus-within:border-brand-500 focus-within:ring-2 focus-within:ring-brand-100 transition-all">
+                            <i class="fa-solid fa-location-dot text-slate-400 text-lg"></i>
+                            <select id="search-location" class="w-full bg-transparent border-none focus:outline-none text-slate-800 text-sm sm:text-base">
+                                <option value="">Semua Lokasi Lokal</option>
+                                <option value="Pusat Kota">Pusat Kota</option>
+                                <option value="Kawasan Industri">Kawasan Industri</option>
+                                <option value="Kecamatan Barat">Wilayah Barat</option>
+                                <option value="Kecamatan Timur">Wilayah Timur</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="w-full md:w-auto px-8 py-3.5 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 text-sm sm:text-base">
+                            <i class="fa-solid fa-search"></i>
+                            <span>Cari Kerja</span>
+                        </button>
+                    </form>
+
+                    <!-- Popular Tags -->
+                    <div class="mt-4 flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm text-slate-500">
+                        <span class="font-medium">Populer:</span>
+                        <button onclick="quickSearch('Kasir')" class="px-2.5 py-1 bg-white hover:bg-slate-100 border border-slate-200 rounded-full transition-colors">Kasir</button>
+                        <button onclick="quickSearch('Admin')" class="px-2.5 py-1 bg-white hover:bg-slate-100 border border-slate-200 rounded-full transition-colors">Admin Toko</button>
+                        <button onclick="quickSearch('Driver')" class="px-2.5 py-1 bg-white hover:bg-slate-100 border border-slate-200 rounded-full transition-colors">Kurir / Driver</button>
+                        <button onclick="quickSearch('Barista')" class="px-2.5 py-1 bg-white hover:bg-slate-100 border border-slate-200 rounded-full transition-colors">Barista</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Kategori Pekerjaan Populer Section -->
+        <section id="kategori-section" class="py-16 bg-white border-y border-slate-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-10">
+                    <div>
+                        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight" id="cat-title-text">Kategori Pekerjaan Populer</h2>
+                        <p class="text-slate-600 mt-2 text-sm sm:text-base">Eksplorasi sektor lowongan kerja dengan permintaan tertinggi saat ini.</p>
+                    </div>
+                    <button onclick="filterCategory('semua')" class="mt-4 md:mt-0 text-brand-600 hover:text-brand-700 font-semibold text-sm flex items-center gap-1 group">
+                        Lihat Semua Kategori <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="categories-grid">
+                    <!-- Dynamic Category Cards rendered via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Daftar Lowongan Kerja Terbaru Section -->
+        <section id="lowongan" class="py-16 bg-slate-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-10">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">Lowongan Kerja Terbaru</h2>
+                    <p class="text-slate-600 mt-2 text-sm sm:text-base">Diperbarui setiap hari oleh perusahaan dan usaha lokal terpercaya.</p>
+                </div>
+
+                <!-- Filter Pills -->
+                <div class="flex flex-wrap items-center justify-center gap-2 mb-8" id="filter-container">
+                    <!-- Dynamic filter buttons generated via JS -->
+                </div>
+
+                <!-- Job List Cards Container -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="job-list">
+                    <!-- Dynamic Job Cards populated by JS -->
+                </div>
+
+                <!-- Empty State Message -->
+                <div id="no-jobs-msg" class="hidden text-center py-12 bg-white rounded-2xl border border-slate-200 mt-4">
+                    <i class="fa-solid fa-magnifying-glass text-4xl text-slate-300 mb-3"></i>
+                    <h3 class="text-lg font-bold text-slate-700">Tidak ada lowongan ditemukan</h3>
+                    <p class="text-slate-500 text-sm mt-1">Coba gunakan kata kunci atau filter posisi lain.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section (Unggah CV) -->
+        <section id="cta-section" class="py-16 bg-brand-700 text-white relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="bg-brand-800/80 rounded-3xl p-8 sm:p-12 border border-brand-500/30 shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-8">
+                    <div class="max-w-2xl text-center lg:text-left space-y-3">
+                        <span class="px-3 py-1 bg-brand-500/30 text-brand-200 rounded-full text-xs font-semibold tracking-wide uppercase">Fitur Cepat</span>
+                        <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight">Belum menemukan posisi yang pas?</h2>
+                        <p class="text-brand-100 text-sm sm:text-base">
+                            Unggah CV Anda sekarang. Ribuan pemilik usaha lokal dapat melihat profil Anda dan menawarkan pekerjaan secara langsung!
+                        </p>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-4 w-full lg:w-auto">
+                        <button onclick="openApplyModal('Umum')" class="px-6 py-3.5 bg-white text-brand-700 hover:bg-brand-50 font-bold rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 text-sm sm:text-base">
+                            <i class="fa-solid fa-cloud-arrow-up text-lg"></i>
+                            <span>Unggah CV Sekarang</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Kontak / Bantuan -->
+        <section id="kontak-section" class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                    <div>
+                        <span class="text-brand-600 font-bold text-xs uppercase tracking-wider">Pusat Bantuan</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">Butuh Bantuan atau Ada Pertanyaan?</h2>
+                        <p class="text-slate-600 mt-3 text-sm sm:text-base leading-relaxed">
+                            Tim kami siap membantu pencari kerja maupun pemberi kerja lokal. Hubungi kami melalui formulir atau kontak di bawah ini.
+                        </p>
+
+                        <div class="mt-8 space-y-4">
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center text-lg font-bold shrink-0">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-bold text-slate-800">Email Bantuan</h4>
+                                    <p class="text-slate-500 text-xs mt-0.5">support@kerjalokal.id</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center text-lg font-bold shrink-0">
+                                    <i class="fa-solid fa-headset"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-bold text-slate-800">Call Center / Whatsapp</h4>
+                                    <p class="text-slate-500 text-xs mt-0.5">+62 812-3456-7890 (Senin - Sabtu)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div class="bg-slate-50 p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm">
+                        <form onsubmit="handleContactSubmit(event)" class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Nama Lengkap</label>
+                                <input type="text" id="contact-name" required placeholder="Masukkan nama Anda" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Nomor WhatsApp / Email</label>
+                                <input type="text" id="contact-info" required placeholder="0812... / nama@email.com" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Pesan / Pertanyaan</label>
+                                <textarea id="contact-message" required rows="3" placeholder="Tuliskan pertanyaan Anda..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none"></textarea>
+                            </div>
+                            <button type="submit" class="w-full py-3 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl text-sm transition-all shadow-md">
+                                Kirim Bantuan
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="md:col-span-2 space-y-3">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-lg bg-brand-600 text-white flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-briefcase"></i>
+                        </div>
+                        <span class="font-bold text-white text-lg">KerjaLokal</span>
+                    </div>
+                    <p class="text-xs text-slate-400 max-w-sm leading-relaxed">
+                        Platform direktori lowongan kerja lokal independen tercepat dan terpercaya untuk menghubungkan talenta terbaik dengan pemilik usaha di daerah.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white text-xs font-bold uppercase tracking-wider mb-3">Tautan Cepat</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#hero-section" class="hover:text-white transition-colors">Beranda</a></li>
+                        <li><a href="#kategori-section" class="hover:text-white transition-colors">Kategori Pekerjaan</a></li>
+                        <li><a href="#lowongan" class="hover:text-white transition-colors">Lowongan Terbaru</a></li>
+                        <li><a href="#cta-section" class="hover:text-white transition-colors">Unggah CV Saja</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white text-xs font-bold uppercase tracking-wider mb-3">Administrasi</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><button onclick="openAdminAuth()" class="hover:text-white transition-colors flex items-center gap-1.5"><i class="fa-solid fa-user-shield text-amber-500"></i> Login Admin Web</button></li>
+                        <li><a href="#kontak-section" class="hover:text-white transition-colors">Pusat Bantuan</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-slate-800 text-center text-xs text-slate-500">
+                &copy; 2026 KerjaLokal Portal. Hak Cipta Dilindungi.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal Lamar / Unggah CV -->
+    <div id="apply-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 overflow-y-auto">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative border border-slate-100 my-8">
+            <button onclick="closeApplyModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div class="mb-6">
+                <span class="text-brand-600 font-bold text-xs uppercase tracking-wider">Formulir Pendaftaran</span>
+                <h3 class="text-xl font-bold text-slate-900" id="modal-job-title">Lamar Pekerjaan</h3>
+            </div>
+            <form id="apply-form" onsubmit="handleApplySubmit(event)" class="space-y-4">
+                <input type="hidden" id="modal-hidden-job" value="">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Nama Lengkap</label>
+                    <input type="text" id="applicant-name" required placeholder="Contoh: Budi Santoso" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Nomor WhatsApp</label>
+                    <input type="tel" id="applicant-phone" required placeholder="08123456789" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Pendidikan Terakhir</label>
+                    <select id="applicant-edu" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm bg-white focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                        <option value="SMA/SMK">SMA / SMK Sederajat</option>
+                        <option value="D3/D4">Diploma (D3 / D4)</option>
+                        <option value="S1/S2">Sarjana (S1 / S2)</option>
+                        <option value="SMP">SMP Sederajat</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Unggah Resume / CV (PDF/DOCX)</label>
+                    <div class="border-2 border-dashed border-slate-300 rounded-xl p-4 text-center hover:border-brand-500 transition-colors bg-slate-50 cursor-pointer relative">
+                        <input type="file" id="applicant-cv" accept=".pdf,.doc,.docx" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" onchange="updateFileName(this)" required>
+                        <i class="fa-solid fa-cloud-arrow-up text-2xl text-brand-600 mb-1"></i>
+                        <p class="text-xs text-slate-600 font-medium" id="file-label">Klik atau seret file CV Anda ke sini</p>
+                    </div>
+                </div>
+                <button type="submit" class="w-full py-3 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl text-sm transition-all shadow-md mt-2">
+                    Kirim Lamaran Sekarang
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Admin Login -->
+    <div id="admin-login-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl relative border border-slate-100">
+            <button onclick="closeAdminLoginModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center mx-auto text-xl mb-2 font-bold">
+                    <i class="fa-solid fa-user-shield"></i>
+                </div>
+                <h3 class="text-xl font-bold text-slate-900">Login Admin & Analitik</h3>
+                <p class="text-xs text-slate-500 mt-1">Sandi default: <span class="font-mono bg-slate-100 px-1.5 py-0.5 rounded text-amber-700 font-bold">admin123</span></p>
+            </div>
+            <form onsubmit="handleAdminLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Username</label>
+                    <input type="text" id="admin-user" required value="admin" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-500 text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Password</label>
+                    <input type="password" id="admin-pass" required placeholder="••••••••" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-500 text-sm">
+                </div>
+                <button type="submit" class="w-full py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl shadow transition-all text-sm">
+                    Masuk Panel Admin
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Dashboard Admin (Pengunjung Website & Data Formulir) -->
+    <div id="admin-panel-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 overflow-y-auto">
+        <div class="bg-white rounded-2xl max-w-5xl w-full p-6 sm:p-8 shadow-2xl relative border border-slate-100 my-8">
+            <button onclick="closeAdminPanelModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 pb-4 mb-6 gap-3">
+                <div>
+                    <span class="text-amber-600 font-semibold text-xs uppercase tracking-wider">Sistem Monitoring Web & Pengisian Data</span>
+                    <h3 class="text-2xl font-bold text-slate-900">Panel Informasi Admin</h3>
+                </div>
+                <button onclick="adminLogout()" class="px-3 py-1.5 text-xs font-semibold text-red-600 bg-red-50 hover:bg-red-100 rounded-lg self-start sm:self-auto">
+                    <i class="fa-solid fa-right-from-bracket mr-1"></i> Keluar Admin
+                </button>
+            </div>
+
+            <!-- Tabs Dashboard Admin -->
+            <div class="flex border-b border-slate-200 mb-6 gap-6 text-sm font-semibold overflow-x-auto">
+                <button onclick="switchAdminTab('visitors')" id="tab-btn-visitors" class="pb-2.5 text-amber-600 border-b-2 border-amber-600 flex items-center gap-2 shrink-0">
+                    <i class="fa-solid fa-users text-xs"></i> Pengunjung Website (<span id="count-visitors-badge">0</span>)
+                </button>
+                <button onclick="switchAdminTab('submissions')" id="tab-btn-submissions" class="pb-2.5 text-slate-500 hover:text-slate-800 flex items-center gap-2 shrink-0">
+                    <i class="fa-solid fa-file-signature text-xs"></i> Pengisi Formulir (<span id="count-forms-badge">0</span>)
+                </button>
+                <button onclick="switchAdminTab('jobs')" id="tab-btn-jobs" class="pb-2.5 text-slate-500 hover:text-slate-800 flex items-center gap-2 shrink-0">
+                    <i class="fa-solid fa-briefcase text-xs"></i> Kelola Lowongan
+                </button>
+            </div>
+
+            <!-- TAB 1: Pengunjung Website (Visitor Traffic Tracking) -->
+            <div id="tab-content-visitors" class="space-y-6">
+                <!-- Analytics Overview Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="bg-amber-50/60 p-4 rounded-xl border border-amber-200/60">
+                        <span class="text-xs text-amber-700 font-semibold uppercase">Total Pengunjung</span>
+                        <h4 class="text-2xl font-extrabold text-amber-900 mt-1" id="stat-total-visitors">0</h4>
+                        <p class="text-[11px] text-amber-600 mt-1"><i class="fa-solid fa-signal text-amber-500"></i> Pengunjung unik sesi ini</p>
+                    </div>
+                    <div class="bg-blue-50/60 p-4 rounded-xl border border-blue-200/60">
+                        <span class="text-xs text-blue-700 font-semibold uppercase">Total Tayangan (Views)</span>
+                        <h4 class="text-2xl font-extrabold text-blue-900 mt-1" id="stat-total-views">0</h4>
+                        <p class="text-[11px] text-blue-600 mt-1"><i class="fa-solid fa-eye"></i> Halaman yang dikunjungi</p>
+                    </div>
+                    <div class="bg-emerald-50/60 p-4 rounded-xl border border-emerald-200/60">
+                        <span class="text-xs text-emerald-700 font-semibold uppercase">Respons Formulir</span>
+                        <h4 class="text-2xl font-extrabold text-emerald-900 mt-1" id="stat-total-submissions">0</h4>
+                        <p class="text-[11px] text-emerald-600 mt-1"><i class="fa-solid fa-paper-plane"></i> Total CV & Pesan masuk</p>
+                    </div>
+                </div>
+
+                <!-- Live Visitors Table -->
+                <div class="bg-white rounded-xl border border-slate-200 overflow-hidden">
+                    <div class="p-4 bg-slate-50 border-b border-slate-200 flex justify-between items-center">
+                        <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                            Daftar Pengunjung Yang Mengakses Website
+                        </h4>
+                        <button onclick="clearVisitorLog()" class="text-xs text-slate-500 hover:text-red-600">
+                            <i class="fa-solid fa-trash-can mr-1"></i> Bersihkan Log
+                        </button>
+                    </div>
+                    <div class="overflow-x-auto max-h-80">
+                        <table class="w-full text-left text-xs text-slate-600">
+                            <thead class="bg-slate-100 text-slate-700 uppercase font-semibold sticky top-0">
+                                <tr>
+                                    <th class="p-3">Waktu Akses</th>
+                                    <th class="p-3">ID Sesi Pengunjung</th>
+                                    <th class="p-3">Lokasi / IP Est.</th>
+                                    <th class="p-3">Perangkat & Browser</th>
+                                    <th class="p-3 text-right">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="visitor-table-body" class="divide-y divide-slate-100 font-mono">
+                                <!-- JS Populated Visitor Data -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: Pengisi Formulir (Form Submissions Tracking) -->
+            <div id="tab-content-submissions" class="hidden space-y-6">
+                <div class="bg-white rounded-xl border border-slate-200 overflow-hidden">
+                    <div class="p-4 bg-slate-50 border-b border-slate-200 flex justify-between items-center">
+                        <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider">
+                            Daftar Pengunjung Yang Mengisi Formulir
+                        </h4>
+                        <span class="text-xs text-slate-500">Tersimpan otomatis saat pengunjung submit</span>
+                    </div>
+                    <div class="overflow-x-auto max-h-96">
+                        <table class="w-full text-left text-xs text-slate-600">
+                            <thead class="bg-slate-100 text-slate-700 uppercase font-semibold sticky top-0">
+                                <tr>
+                                    <th class="p-3">Waktu Kirim</th>
+                                    <th class="p-3">Tipe Form</th>
+                                    <th class="p-3">Nama Lengkap</th>
+                                    <th class="p-3">Kontak / WhatsApp</th>
+                                    <th class="p-3">Detail / Berkas CV</th>
+                                </tr>
+                            </thead>
+                            <tbody id="submission-table-body" class="divide-y divide-slate-100">
+                                <!-- JS Populated Submissions -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: Kelola Lowongan -->
+            <div id="tab-content-jobs" class="hidden space-y-6">
+                <div class="flex justify-between items-center bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <h4 class="font-bold text-slate-800 text-sm">Daftar Lowongan Pekerjaan Aktif</h4>
+                    <button onclick="openJobFormModal()" class="px-3.5 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-lg text-xs font-bold flex items-center gap-1.5">
+                        <i class="fa-solid fa-plus"></i> Tambah Lowongan Baru
+                    </button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs sm:text-sm text-slate-600">
+                        <thead class="bg-slate-100 text-slate-700 uppercase font-semibold">
+                            <tr>
+                                <th class="p-3">Posisi</th>
+                                <th class="p-3">Perusahaan</th>
+                                <th class="p-3">Kategori</th>
+                                <th class="p-3">Gaji</th>
+                                <th class="p-3 text-right">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-job-table-body" class="divide-y divide-slate-100">
+                            <!-- JS Populated Job Rows -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Form Tambah/Edit Lowongan Pekerjaan -->
+    <div id="admin-job-form-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 overflow-y-auto">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl relative border border-slate-100 my-8">
+            <button onclick="closeJobFormModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <h3 class="text-xl font-bold text-slate-900 mb-4" id="job-form-title">Tambah Lowongan Baru</h3>
+            <form onsubmit="handleSaveJob(event)" class="space-y-3">
+                <input type="hidden" id="job-edit-id" value="">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Judul Posisi</label>
+                    <input type="text" id="job-form-title-input" required placeholder="Contoh: Admin Kasir Toko" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm">
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Perusahaan</label>
+                        <input type="text" id="job-form-company" required placeholder="Nama Toko/PT" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Kategori</label>
+                        <select id="job-form-category" required class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm bg-white">
+                            <!-- Dynamic populated categories -->
+                        </select>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Lokasi</label>
+                        <input type="text" id="job-form-location" required placeholder="Pusat Kota" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Kisaran Gaji</label>
+                        <input type="text" id="job-form-salary" required placeholder="Rp 2.500.000 - Rp 3.000.000" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Tag Persyaratan (Pisahkan Koma)</label>
+                    <input type="text" id="job-form-tags" required placeholder="Min SMA, Pria/Wanita, Pengalaman" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm">
+                </div>
+                <button type="submit" class="w-full py-3 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl text-sm transition-all mt-2">
+                    Simpan Data Lowongan
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 hidden bg-slate-900 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 border border-slate-800 text-sm">
+        <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+        <span id="toast-msg">Notifikasi berhasil!</span>
+    </div>
+
+    <script>
+        // Data Lowongan Kerja Initial State
+        let jobsData = [
+            { id: 1, title: "Kasir & Pramuniaga Minimarket", company: "Toko Berkah Utama", location: "Pusat Kota", category: "ritel", salary: "Rp 2.500.000 - Rp 3.000.000", posted: "1 hari yang lalu", tags: ["Min SMA/SMK", "Jujur", "Shift"] },
+            { id: 2, title: "Barista & Staf Kafe", company: "Kopi Karsa Lokal", location: "Kecamatan Barat", category: "fnb", salary: "Rp 2.200.000 - Rp 2.800.000", posted: "Baru saja", tags: ["Pengalaman 1 thn", "Ramah", "Kreatif"] },
+            { id: 3, title: "Admin Operasional Gudang", company: "PT Logistik Jaya Lokal", location: "Kawasan Industri", category: "admin", salary: "Rp 3.200.000 - Rp 3.800.000", posted: "2 hari yang lalu", tags: ["Ms Office", "Bisa Excel", "SMA/D3"] },
+            { id: 4, title: "Kurir Pengiriman Barang", company: "Ekspedisi Cepat Lokal", location: "Pusat Kota", category: "admin", salary: "Rp 2.800.000 - Rp 3.500.000", posted: "3 hari yang lalu", tags: ["Memiliki SIM C", "Motor Sendiri"] },
+            { id: 5, title: "Pelayan Restoran (Waiter)", company: "Resto Rumah Rasa", location: "Kecamatan Timur", category: "fnb", salary: "Rp 1.800.000 - Rp 2.200.000", posted: "1 hari yang lalu", tags: ["Komunikatif", "Disiplin"] },
+            { id: 6, title: "Staff Head Store Ritel", company: "Busana Indah Fashion", location: "Pusat Kota", category: "ritel", salary: "Rp 3.500.000 - Rp 4.200.000", posted: "4 hari yang lalu", tags: ["Min D3/S1", "Leadership"] }
+        ];
+
+        // Dynamic Categories Data
+        let categoriesData = [
+            { id: 'ritel', name: 'Perdagangan & Ritel', icon: 'fa-store', bg: 'bg-blue-100 text-blue-600', desc: 'Kasir, pramuniaga, kepala toko, dan staf inventaris.' },
+            { id: 'fnb', name: 'Jasa, Resto & Kafe', icon: 'fa-utensils', bg: 'bg-amber-100 text-amber-600', desc: 'Koki, waiter, barista, kebersihan, dan staf resto.' },
+            { id: 'admin', name: 'Logistik & Administrasi', icon: 'fa-truck-ramp-box', bg: 'bg-emerald-100 text-emerald-600', desc: 'Admin kantor, kurir lokal, staf gudang, dan driver.' }
+        ];
+
+        // --- ADMIN TRACKING STATE & DATA ---
+        let visitorLogs = [
+            { time: "22:15:02", sessionId: "USR-88219", location: "Pusat Kota (180.244.x.x)", device: "Chrome (Mobile Android)", status: "Online" },
+            { time: "22:10:45", sessionId: "USR-77312", location: "Wilayah Barat (110.138.x.x)", device: "Safari (iPhone iOS)", status: "Selesai" },
+            { time: "21:55:10", sessionId: "USR-33901", location: "Kawasan Industri (180.252.x.x)", device: "Edge (Windows Desktop)", status: "Selesai" }
+        ];
+
+        let formSubmissions = [
+            { time: "22:12:30", type: "Lamar: Barista & Staf Kafe", name: "Andi Saputra", contact: "081298765432", detail: "Pendidikan: SMA/SMK | CV: cv_andi_2026.pdf" },
+            { time: "21:40:15", type: "Unggah CV Saja (Umum)", name: "Siti Rahma", contact: "085712348899", detail: "Pendidikan: S1/S2 | CV: cv_siti_rahma.pdf" }
+        ];
+
+        let totalPageViews = 14;
+        let isAdminLoggedIn = false;
+        let currentCategory = 'semua';
+
+        // Track Current Visitor on Page Load
+        function recordCurrentVisitor() {
+            totalPageViews++;
+            const now = new Date();
+            const timeStr = now.toTimeString().split(' ')[0];
+            const randomId = "USR-" + Math.floor(10000 + Math.random() * 90000);
+            
+            // Check User Agent
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            const devInfo = isMobile ? "Browser HP (Mobile)" : "Browser Laptop/PC";
+
+            visitorLogs.unshift({
+                time: timeStr,
+                sessionId: randomId,
+                location: "Akses Lokal (IP Aktif)",
+                device: devInfo,
+                status: "Online Sekarang"
+            });
+        }
+
+        // Render Visitor & Form Data in Admin Dashboard
+        function renderAdminAnalytics() {
+            // Update Badges & Counters
+            document.getElementById('count-visitors-badge').textContent = visitorLogs.length;
+            document.getElementById('count-forms-badge').textContent = formSubmissions.length;
+            document.getElementById('stat-total-visitors').textContent = visitorLogs.length;
+            document.getElementById('stat-total-views').textContent = totalPageViews;
+            document.getElementById('stat-total-submissions').textContent = formSubmissions.length;
+
+            // Render Visitors Table Body
+            const vBody = document.getElementById('visitor-table-body');
+            vBody.innerHTML = visitorLogs.map(v => `
+                <tr class="hover:bg-slate-50">
+                    <td class="p-3 text-slate-500">${v.time}</td>
+                    <td class="p-3 font-bold text-amber-700">${v.sessionId}</td>
+                    <td class="p-3">${v.location}</td>
+                    <td class="p-3">${v.device}</td>
+                    <td class="p-3 text-right">
+                        <span class="px-2 py-0.5 rounded text-[10px] font-bold ${v.status.includes('Online') ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-500'}">
+                            ${v.status}
+                        </span>
+                    </td>
+                </tr>
+            `).join('');
+
+            // Render Form Submissions Table Body
+            const sBody = document.getElementById('submission-table-body');
+            if (formSubmissions.length === 0) {
+                sBody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-slate-400">Belum ada pengisian formulir.</td></tr>`;
+            } else {
+                sBody.innerHTML = formSubmissions.map(s => `
+                    <tr class="hover:bg-slate-50">
+                        <td class="p-3 font-mono text-slate-400 text-[11px]">${s.time}</td>
+                        <td class="p-3 font-bold text-brand-700"><span class="px-2 py-0.5 bg-brand-50 rounded">${s.type}</span></td>
+                        <td class="p-3 font-semibold text-slate-900">${s.name}</td>
+                        <td class="p-3 text-brand-600 font-mono">${s.contact}</td>
+                        <td class="p-3 text-xs text-slate-600">${s.detail}</td>
+                    </tr>
+                `).join('');
+            }
+        }
+
+        function clearVisitorLog() {
+            visitorLogs = [visitorLogs[0]]; // keep recent current
+            renderAdminAnalytics();
+            showToast("Log riwayat pengunjung dibersihkan!");
+        }
+
+        // Render Dynamic Categories Grid & Filter Buttons
+        function renderCategories() {
+            const gridContainer = document.getElementById('categories-grid');
+            const filterContainer = document.getElementById('filter-container');
+            const formCatSelect = document.getElementById('job-form-category');
+
+            if (gridContainer) {
+                gridContainer.innerHTML = categoriesData.map(cat => {
+                    const count = jobsData.filter(j => j.category === cat.id).length;
+                    return `
+                        <div onclick="filterCategory('${cat.id}')" class="group p-6 bg-slate-50 hover:bg-brand-50/50 rounded-2xl border border-slate-200 hover:border-brand-200 transition-all cursor-pointer shadow-sm hover:shadow-md">
+                            <div class="w-14 h-14 rounded-xl ${cat.bg} flex items-center justify-center text-2xl font-bold mb-5 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid ${cat.icon}"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 group-hover:text-brand-600 transition-colors">${cat.name}</h3>
+                            <p class="text-slate-600 text-sm mt-2">${cat.desc}</p>
+                            <div class="mt-6 flex items-center justify-between text-xs font-semibold text-slate-500">
+                                <span>${count} Lowongan Aktif</span>
+                                <span class="text-brand-600 group-hover:underline">Jelajahi &rarr;</span>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            if (filterContainer) {
+                filterContainer.innerHTML = `
+                    <button onclick="filterCategory('semua')" class="filter-btn ${currentCategory === 'semua' ? 'active bg-brand-600 text-white shadow-sm' : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'} px-4 py-2 rounded-xl text-sm font-semibold transition-all">Semua Kategori</button>
+                    ${categoriesData.map(cat => `
+                        <button onclick="filterCategory('${cat.id}')" class="filter-btn ${currentCategory === cat.id ? 'active bg-brand-600 text-white shadow-sm' : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'} px-4 py-2 rounded-xl text-sm font-semibold transition-all">${cat.name}</button>
+                    `).join('')}
+                `;
+            }
+
+            if (formCatSelect) {
+                formCatSelect.innerHTML = categoriesData.map(cat => `<option value="${cat.id}">${cat.name}</option>`).join('');
+            }
+        }
+
+        // Render Lowongan Kerja
+        function renderJobs(jobs) {
+            const jobListContainer = document.getElementById('job-list');
+            const noJobsMsg = document.getElementById('no-jobs-msg');
+
+            jobListContainer.innerHTML = '';
+
+            if (jobs.length === 0) {
+                noJobsMsg.classList.remove('hidden');
+                return;
+            } else {
+                noJobsMsg.classList.add('hidden');
+            }
+
+            jobs.forEach(job => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group";
+                
+                const catObj = categoriesData.find(c => c.id === job.category);
+                const catName = catObj ? catObj.name : 'Umum';
+
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-start justify-between gap-3 mb-3">
+                            <span class="px-2.5 py-1 rounded-md text-xs font-semibold bg-brand-50 text-brand-700">
+                                ${catName}
+                            </span>
+                            <span class="text-[11px] text-slate-400 flex items-center gap-1">
+                                <i class="fa-regular fa-clock"></i> ${job.posted}
+                            </span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 group-hover:text-brand-600 transition-colors leading-snug">${job.title}</h3>
+                        <p class="text-slate-600 text-sm font-medium mt-1 flex items-center gap-1.5">
+                            <i class="fa-regular fa-building text-slate-400"></i> ${job.company}
+                        </p>
+                        
+                        <div class="mt-4 pt-4 border-t border-slate-100 space-y-2 text-xs text-slate-500">
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-location-dot text-slate-400 w-4"></i>
+                                <span>${job.location}</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-money-bill-wave text-slate-400 w-4"></i>
+                                <span class="font-semibold text-slate-700">${job.salary}</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 flex flex-wrap gap-1.5">
+                            ${job.tags.map(tag => `<span class="px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-[11px]">${tag}</span>`).join('')}
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-slate-100 flex gap-2">
+                        <button onclick="openApplyModal('${job.title}')" class="flex-1 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-xl text-sm transition-colors flex items-center justify-center gap-2">
+                            <span>Lamar Sekarang</span>
+                            <i class="fa-solid fa-paper-plane text-xs"></i>
+                        </button>
+                    </div>
+                `;
+                jobListContainer.appendChild(card);
+            });
+        }
+
+        // Filter berdasarkan kategori
+        function filterCategory(cat) {
+            currentCategory = cat;
+            renderCategories();
+            filterJobs();
+            document.getElementById('lowongan').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Search & Filter Logic
+        function filterJobs() {
+            const keyword = document.getElementById('search-keyword').value.toLowerCase();
+            const location = document.getElementById('search-location').value;
+
+            const filtered = jobsData.filter(job => {
+                const matchCategory = (currentCategory === 'semua' || job.category === currentCategory);
+                const matchKeyword = job.title.toLowerCase().includes(keyword) || 
+                                     job.company.toLowerCase().includes(keyword) ||
+                                     job.tags.some(t => t.toLowerCase().includes(keyword));
+                const matchLocation = location === "" || job.location === location;
+
+                return matchCategory && matchKeyword && matchLocation;
+            });
+
+            renderJobs(filtered);
+        }
+
+        function quickSearch(tag) {
+            document.getElementById('search-keyword').value = tag;
+            filterJobs();
+            document.getElementById('lowongan').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- ADMIN AUTH & PANEL CONTROL ---
+        function openAdminAuth() {
+            closeMobileMenu();
+            if (isAdminLoggedIn) {
+                openAdminPanelModal();
+            } else {
+                document.getElementById('admin-login-modal').classList.remove('hidden');
+            }
+        }
+
+        function closeAdminLoginModal() {
+            document.getElementById('admin-login-modal').classList.add('hidden');
+        }
+
+        function handleAdminLogin(e) {
+            e.preventDefault();
+            const pass = document.getElementById('admin-pass').value;
+            if (pass === 'admin123') {
+                isAdminLoggedIn = true;
+                closeAdminLoginModal();
+                document.getElementById('admin-btn-text').textContent = "Dashboard Admin";
+                showToast("Berhasil masuk ke Panel Admin & Monitoring!");
+                openAdminPanelModal();
+            } else {
+                showToast("Password admin salah! Gunakan: admin123");
+            }
+        }
+
+        function adminLogout() {
+            isAdminLoggedIn = false;
+            document.getElementById('admin-btn-text').textContent = "Admin Panel";
+            closeAdminPanelModal();
+            showToast("Anda telah keluar dari mode admin.");
+        }
+
+        function openAdminPanelModal() {
+            document.getElementById('admin-panel-modal').classList.remove('hidden');
+            renderAdminAnalytics();
+            renderAdminJobsTable();
+        }
+
+        function closeAdminPanelModal() {
+            document.getElementById('admin-panel-modal').classList.add('hidden');
+        }
+
+        function switchAdminTab(tabName) {
+            document.getElementById('tab-content-visitors').classList.add('hidden');
+            document.getElementById('tab-content-submissions').classList.add('hidden');
+            document.getElementById('tab-content-jobs').classList.add('hidden');
+
+            document.getElementById('tab-btn-visitors').className = "pb-2.5 text-slate-500 hover:text-slate-800 flex items-center gap-2 shrink-0";
+            document.getElementById('tab-btn-submissions').className = "pb-2.5 text-slate-500 hover:text-slate-800 flex items-center gap-2 shrink-0";
+            document.getElementById('tab-btn-jobs').className = "pb-2.5 text-slate-500 hover:text-slate-800 flex items-center gap-2 shrink-0";
+
+            document.getElementById(`tab-content-${tabName}`).classList.remove('hidden');
+            document.getElementById(`tab-btn-${tabName}`).className = "pb-2.5 text-amber-600 border-b-2 border-amber-600 font-bold flex items-center gap-2 shrink-0";
+        }
+
+        function renderAdminJobsTable() {
+            const tbody = document.getElementById('admin-job-table-body');
+            tbody.innerHTML = jobsData.map(job => `
+                <tr class="hover:bg-slate-50">
+                    <td class="p-3 font-semibold text-slate-900">${job.title}</td>
+                    <td class="p-3">${job.company}</td>
+                    <td class="p-3"><span class="px-2 py-0.5 bg-slate-100 rounded text-xs">${job.category}</span></td>
+                    <td class="p-3">${job.salary}</td>
+                    <td class="p-3 text-right space-x-1">
+                        <button onclick="editJob(${job.id})" class="px-2 py-1 text-xs bg-amber-100 text-amber-700 hover:bg-amber-200 rounded"><i class="fa-solid fa-pen"></i></button>
+                        <button onclick="deleteJob(${job.id})" class="px-2 py-1 text-xs bg-red-100 text-red-700 hover:bg-red-200 rounded"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function openJobFormModal(jobId = null) {
+            const modal = document.getElementById('admin-job-form-modal');
+            const title = document.getElementById('job-form-title');
+            document.getElementById('job-edit-id').value = jobId || '';
+
+            if (jobId) {
+                title.textContent = "Edit Data Lowongan";
+                const job = jobsData.find(j => j.id === jobId);
+                document.getElementById('job-form-title-input').value = job.title;
+                document.getElementById('job-form-company').value = job.company;
+                document.getElementById('job-form-category').value = job.category;
+                document.getElementById('job-form-location').value = job.location;
+                document.getElementById('job-form-salary').value = job.salary;
+                document.getElementById('job-form-tags').value = job.tags.join(', ');
+            } else {
+                title.textContent = "Tambah Lowongan Baru";
+                document.getElementById('job-form-title-input').value = '';
+                document.getElementById('job-form-company').value = '';
+                document.getElementById('job-form-location').value = '';
+                document.getElementById('job-form-salary').value = '';
+                document.getElementById('job-form-tags').value = '';
+            }
+            modal.classList.remove('hidden');
+        }
+
+        function closeJobFormModal() {
+            document.getElementById('admin-job-form-modal').classList.add('hidden');
+        }
+
+        function handleSaveJob(e) {
+            e.preventDefault();
+            const id = document.getElementById('job-edit-id').value;
+            const newJob = {
+                id: id ? parseInt(id) : Date.now(),
+                title: document.getElementById('job-form-title-input').value,
+                company: document.getElementById('job-form-company').value,
+                category: document.getElementById('job-form-category').value,
+                location: document.getElementById('job-form-location').value,
+                salary: document.getElementById('job-form-salary').value,
+                posted: "Baru saja",
+                tags: document.getElementById('job-form-tags').value.split(',').map(t => t.trim())
+            };
+
+            if (id) {
+                const index = jobsData.findIndex(j => j.id === parseInt(id));
+                jobsData[index] = newJob;
+                showToast("Lowongan pekerjaan berhasil diperbarui!");
+            } else {
+                jobsData.unshift(newJob);
+                showToast("Lowongan baru berhasil ditambahkan!");
+            }
+
+            closeJobFormModal();
+            renderAdminJobsTable();
+            renderCategories();
+            filterJobs();
+        }
+
+        function editJob(id) {
+            openJobFormModal(id);
+        }
+
+        function deleteJob(id) {
+            jobsData = jobsData.filter(j => j.id !== id);
+            renderAdminJobsTable();
+            renderCategories();
+            filterJobs();
+            showToast("Lowongan berhasil dihapus!");
+        }
+
+        // --- FORM RECORDERS FOR ADMIN MONITORING ---
+        function openApplyModal(jobTitle) {
+            const modal = document.getElementById('apply-modal');
+            const modalTitle = document.getElementById('modal-job-title');
+            const hiddenInput = document.getElementById('modal-hidden-job');
+
+            modalTitle.textContent = jobTitle === 'Umum' ? 'Unggah CV Saja' : `Lamar: ${jobTitle}`;
+            hiddenInput.value = jobTitle;
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeApplyModal() {
+            const modal = document.getElementById('apply-modal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            document.getElementById('apply-form').reset();
+            document.getElementById('file-label').textContent = 'Klik atau seret file CV Anda ke sini';
+        }
+
+        function updateFileName(input) {
+            const label = document.getElementById('file-label');
+            if (input.files && input.files[0]) {
+                label.textContent = `File terpilih: ${input.files[0].name}`;
+            } else {
+                label.textContent = 'Klik atau seret file CV Anda ke sini';
+            }
+        }
+
+        function handleApplySubmit(e) {
+            e.preventDefault();
+            const jobTitle = document.getElementById('modal-hidden-job').value;
+            const name = document.getElementById('applicant-name').value;
+            const phone = document.getElementById('applicant-phone').value;
+            const edu = document.getElementById('applicant-edu').value;
+            const fileInput = document.getElementById('applicant-cv');
+            const fileName = fileInput.files[0] ? fileInput.files[0].name : "cv_terlampir.pdf";
+
+            const nowStr = new Date().toTimeString().split(' ')[0];
+
+            // Record to Admin Form Tracking
+            formSubmissions.unshift({
+                time: nowStr,
+                type: jobTitle === 'Umum' ? 'Unggah CV Saja' : `Lamar: ${jobTitle}`,
+                name: name,
+                contact: phone,
+                detail: `Pendidikan: ${edu} | Berkas: ${fileName}`
+            });
+
+            closeApplyModal();
+            showToast(`Lamaran untuk "${jobTitle}" atas nama ${name} berhasil dikirim!`);
+        }
+
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('contact-name').value;
+            const info = document.getElementById('contact-info').value;
+            const msg = document.getElementById('contact-message').value;
+
+            const nowStr = new Date().toTimeString().split(' ')[0];
+
+            // Record to Admin Form Tracking
+            formSubmissions.unshift({
+                time: nowStr,
+                type: 'Form Bantuan & Pesan',
+                name: name,
+                contact: info,
+                detail: `Pesan: "${msg.substring(0, 40)}..."`
+            });
+
+            e.target.reset();
+            showToast('Pesan pertanyaan Anda telah terkirim! Admin dapat melihat pesan ini.');
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-msg');
+            toastMsg.textContent = message;
+            
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 4000);
+        }
+
+        function closeMobileMenu() {
+            document.getElementById('mobile-menu').classList.add('hidden');
+        }
+
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Search Form Submit
+        document.getElementById('search-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            filterJobs();
+            document.getElementById('lowongan').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Initialize Page
+        window.onload = function() {
+            recordCurrentVisitor();
+            renderCategories();
+            renderJobs(jobsData);
+        };
+    </script>
+</body>
+</html>
